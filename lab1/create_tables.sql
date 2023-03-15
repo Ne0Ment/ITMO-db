@@ -4,13 +4,15 @@ CREATE TABLE People (
 );
 
 CREATE TABLE Friendship (
-    person1_id int PRIMARY KEY REFERENCES People(person_id), 
-    person2_id int PRIMARY KEY REFERENCES People(person_id) 
+    id SERIAL PRIMARY KEY,
+    person1_id int REFERENCES People(person_id), 
+    person2_id int REFERENCES People(person_id) 
 );
 
 CREATE TABLE Observings ( 
-    observer_id int PRIMARY KEY REFERENCES People(person_id), 
-    subject_id int PRIMARY KEY REFERENCES People(person_id) 
+    observer_id int REFERENCES People(person_id), 
+    subject_id int REFERENCES People(person_id),
+    PRIMARY KEY (observer_id, subject_id)
 );
 
 CREATE TABLE Feelings (
@@ -25,8 +27,9 @@ CREATE TABLE FeelingCharacteristics (
 );
 
 CREATE TABLE Senses ( 
-    person_id int PRIMARY KEY REFERENCES People(person_id), 
-    feeling_id int PRIMARY KEY REFERENCES Feelings(feeling_id) 
+    person_id int REFERENCES People(person_id), 
+    feeling_id int REFERENCES Feelings(feeling_id),
+    PRIMARY KEY (person_id, feeling_id)
 );
 
 CREATE TABLE Ability (
@@ -35,6 +38,7 @@ CREATE TABLE Ability (
 );
 
 CREATE TABLE Knows (
-    ability_id int PRIMARY KEY REFERENCES Ability(ability_id),
-    person_id int PRIMARY KEY REFERENCES People(person_id)
+    ability_id int REFERENCES Ability(ability_id),
+    person_id int REFERENCES People(person_id),
+    PRIMARY KEY (ability_id, person_id)
 );
