@@ -10,8 +10,8 @@ CREATE TABLE Friendship (
 );
 
 CREATE TABLE Observings ( 
-    observer_id int REFERENCES People(person_id), 
-    subject_id int REFERENCES People(person_id),
+    observer_id int REFERENCES People(person_id) ON DELETE CASCADE, 
+    subject_id int REFERENCES People(person_id) ON DELETE CASCADE,
     PRIMARY KEY (observer_id, subject_id)
 );
 
@@ -22,13 +22,13 @@ CREATE TABLE Feelings (
 
 CREATE TABLE FeelingCharacteristics ( 
     characteristic_id SERIAL PRIMARY KEY, 
-    feeling_id int REFERENCES Feelings(feeling_id), 
+    feeling_id int REFERENCES Feelings(feeling_id) ON DELETE CASCADE, 
     characteristic_name varchar(50) NOT NULL
 );
 
 CREATE TABLE Senses ( 
-    person_id int REFERENCES People(person_id), 
-    feeling_id int REFERENCES Feelings(feeling_id),
+    person_id int REFERENCES People(person_id) ON DELETE CASCADE, 
+    feeling_id int REFERENCES Feelings(feeling_id) ON DELETE CASCADE,
     PRIMARY KEY (person_id, feeling_id)
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE Ability (
 );
 
 CREATE TABLE Knows (
-    ability_id int REFERENCES Ability(ability_id),
-    person_id int REFERENCES People(person_id),
+    ability_id int REFERENCES Ability(ability_id) ON DELETE CASCADE,
+    person_id int REFERENCES People(person_id) ON DELETE CASCADE,
     PRIMARY KEY (ability_id, person_id)
 );
